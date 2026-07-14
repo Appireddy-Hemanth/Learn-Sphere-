@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { FaEnvelope, FaLock, FaSignInAlt } from 'react-icons/fa';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -15,7 +17,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password }, { withCredentials: true });
+            const { data } = await axios.post(`${API_URL}/api/auth/login`, { email, password }, { withCredentials: true });
             login(data);
             if (data.role === 'admin') {
                 navigate('/admin');

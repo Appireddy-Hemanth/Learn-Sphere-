@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { FaEnvelope, FaLock, FaUser, FaUserPlus, FaEye, FaEyeSlash } from 'react-icons/fa';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const Register = () => {
     const [name, setName] = useState('');

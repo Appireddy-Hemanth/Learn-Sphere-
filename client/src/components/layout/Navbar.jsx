@@ -5,7 +5,7 @@ import useAuthStore from '../../store/useAuthStore';
 import { FaGraduationCap, FaMoon, FaSun, FaBell, FaCheck, FaVolumeMute, FaSpinner } from 'react-icons/fa';
 import axios from 'axios';
 
-const API = 'http://localhost:5000/api';
+const API = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api';
 
 const Navbar = () => {
     const { isAuthenticated, user, logout } = useAuthStore();

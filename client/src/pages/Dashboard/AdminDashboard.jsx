@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { FaUsers, FaBook, FaVideo, FaChartLine, FaTrash, FaSpinner, FaBookOpen } from 'react-icons/fa';
 import axios from 'axios';
 
-const API = 'http://localhost:5000/api';
+const API = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api';
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('overview');

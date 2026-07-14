@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import useAuthStore from '../../store/useAuthStore';
 import axios from 'axios';
 
-const API = 'http://localhost:5000/api';
+const API = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api';
 
 const ProfilePage = () => {
     const { user, login } = useAuthStore();

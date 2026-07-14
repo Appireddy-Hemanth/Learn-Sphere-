@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { FaSearch, FaPlayCircle, FaStar, FaFilter, FaSpinner } from 'react-icons/fa';
 import axios from 'axios';
 
-const API = 'http://localhost:5000/api';
+const API = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/api` : 'http://localhost:5000/api';
 
 const fetchCourses = async (keyword = '') => {
     const { data } = await axios.get(`${API}/courses`, { params: keyword ? { keyword } : {} });
