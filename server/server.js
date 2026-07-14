@@ -27,7 +27,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin || origin.match(/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/)) {
+        if (
+            !origin ||
+            origin.match(/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/) ||
+            origin === process.env.CLIENT_URL ||
+            origin.endsWith('.vercel.app')
+        ) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
