@@ -40,6 +40,9 @@ const CourseDetailPage = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['enrollment-status', courseId] });
             queryClient.invalidateQueries({ queryKey: ['dashboard-courses'] });
+        },
+        onError: (err) => {
+            alert(err.response?.data?.message || 'Failed to enroll in the course');
         }
     });
 
@@ -51,6 +54,9 @@ const CourseDetailPage = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['enrollment-status', courseId] });
             queryClient.invalidateQueries({ queryKey: ['dashboard-courses'] });
+        },
+        onError: (err) => {
+            alert(err.response?.data?.message || 'Failed to unenroll from the course');
         }
     });
 
