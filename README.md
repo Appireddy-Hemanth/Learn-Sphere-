@@ -159,3 +159,36 @@ Inside `/client`:
 npm run dev
 ```
 *(Runs at `http://localhost:3000`)*
+
+---
+
+## 🔑 Seeded Accounts Credentials
+
+The database seeding script (`server/seed.js`) automatically populates the database with the following demo accounts:
+
+### 👤 Administrator Account
+- **Role**: `Admin` (automatic dashboard redirection to `/admin`)
+- **Email**: `admin@learnsphere.ai`
+- **Password**: `AdminPassword@123`
+
+### 🎓 Instructor Account
+- **Role**: `Instructor` (manages courses)
+- **Email**: `instructor@learnsphere.ai`
+- **Password**: `Instructor@123`
+
+### 👤 Student Account (Optional creation)
+Students can register a new account on the frontend home/login page. Any standard new account defaults to a `Student` role.
+
+---
+
+## ☁️ Deployed Production Configuration
+
+For production deployments (e.g., Render hosting the backend and Vercel hosting the frontend React client):
+
+### 🍪 Cross-Site Authenticated Cookies (SameSite/Secure)
+Because the client (`.vercel.app`) and backend server (`.onrender.com`) reside on different registrable domains, the browser treats request transactions as **cross-site**. 
+To allow credentials/cookies transmission, `generateToken.js` is built to dynamically apply production settings:
+- **SameSite**: `None`
+- **Secure**: `true`
+
+Additionally, the backend `server.js` CORS is configured to trust client origins ending in `.vercel.app` with `credentials: true`.
