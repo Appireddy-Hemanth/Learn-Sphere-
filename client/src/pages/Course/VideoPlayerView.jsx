@@ -68,10 +68,8 @@ const VideoPlayerView = () => {
         return () => clearInterval(interval);
     }, [videoId, isYouTube, isBlurred]);
 
-    // SCREENSHOT PROTECTION & BLUR (only for native video, not YouTube)
+    // SCREENSHOT PROTECTION & BLUR (for both native and YouTube video views)
     useEffect(() => {
-        if (isYouTube) return;
-
         const handleContextMenu = (e) => e.preventDefault();
         const handleKeydown = (e) => {
             if (
@@ -81,11 +79,19 @@ const VideoPlayerView = () => {
                 (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase()))
             ) {
                 e.preventDefault();
+                setIsBlurred(true);
                 alert('Action prevented for security purposes.');
             }
         };
 
-        const handleBlur = () => setIsBlurred(true);
+        const handleBlur = () => {
+            // Check if document has focus after a 100ms delay to ignore focus shift into YouTube iframe
+            setTimeout(() => {
+                if (!document.hasFocus()) {
+                    setIsBlurred(true);
+                }
+            }, 100);
+        };
         const handleFocus = () => setIsBlurred(false);
 
         document.addEventListener('contextmenu', handleContextMenu);
@@ -455,7 +461,7 @@ const Tabs = ({ user, videoId, currentTime, onSeek }) => {
     const { data: bookmarks = [], isLoading } = useQuery({
         queryKey: ['bookmarks', videoId],
         queryFn: async () => {
-            const { data } = await axios.get(`${API}/bookmarks?videoId=${videoId}`);
+            const { data } = await axios.get(`${API}/bookmarks?videoId=${videoId}`, { withCredentials: true });
             return data;
         },
         enabled: !!videoId,
@@ -508,7 +514,7 @@ const Tabs = ({ user, videoId, currentTime, onSeek }) => {
     // Create bookmark mutation
     const createMutation = useMutation({
         mutationFn: async (newBookmark) => {
-            const { data } = await axios.post(`${API}/bookmarks`, newBookmark);
+            const { data } = await axios.post(`${API}/bookmarks`, newBookmark, { withCredentials: true });
             return data;
         },
         onSuccess: () => {
@@ -521,7 +527,7 @@ const Tabs = ({ user, videoId, currentTime, onSeek }) => {
     // Update bookmark mutation
     const updateMutation = useMutation({
         mutationFn: async ({ id, title }) => {
-            const { data } = await axios.put(`${API}/bookmarks/${id}`, { title });
+            const { data } = await axios.put(`${API}/bookmarks/${id}`, { title }, { withCredentials: true });
             return data;
         },
         onSuccess: () => {
@@ -533,7 +539,7 @@ const Tabs = ({ user, videoId, currentTime, onSeek }) => {
     // Delete bookmark mutation
     const deleteMutation = useMutation({
         mutationFn: async (id) => {
-            const { data } = await axios.delete(`${API}/bookmarks/${id}`);
+            const { data } = await axios.delete(`${API}/bookmarks/${id}`, { withCredentials: true });
             return data;
         },
         onSuccess: () => {
