@@ -97,7 +97,7 @@ const Navbar = () => {
 
                         {isAuthenticated ? (
                             <div className="flex items-center space-x-4 relative">
-                                {user?.role === 'admin' ? (
+                                {user?.role?.toLowerCase() === 'admin' ? (
                                     <Link to="/admin" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 transition font-semibold">Admin Panel</Link>
                                 ) : (
                                     <Link to="/dashboard" className="text-gray-600 dark:text-gray-300 hover:text-primary-500 transition">Dashboard</Link>

@@ -131,7 +131,7 @@ const AdminDashboard = () => {
                                                 <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">{item.name}</td>
                                                 <td className="px-6 py-4">{item.email}</td>
                                                 <td className="px-6 py-4">
-                                                    <span className={`px-2 py-1 rounded-md text-xs font-semibold uppercase tracking-wider ${item.role === 'admin' ? 'bg-indigo-120 text-indigo-700 dark:text-indigo-300 dark:bg-indigo-900/30' : item.role === 'instructor' ? 'bg-purple-100 text-purple-700 dark:text-purple-300 dark:bg-purple-900/30' : 'bg-primary-100 text-primary-707 dark:text-primary-400 dark:bg-primary-900/30'}`}>
+                                                    <span className={`px-2 py-1 rounded-md text-xs font-semibold uppercase tracking-wider ${item.role?.toLowerCase() === 'admin' ? 'bg-indigo-120 text-indigo-700 dark:text-indigo-300 dark:bg-indigo-900/30' : item.role?.toLowerCase() === 'instructor' ? 'bg-purple-100 text-purple-700 dark:text-purple-300 dark:bg-purple-900/30' : 'bg-primary-100 text-primary-707 dark:text-primary-400 dark:bg-primary-900/30'}`}>
                                                         {item.role}
                                                     </span>
                                                 </td>

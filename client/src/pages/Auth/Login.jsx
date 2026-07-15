@@ -19,7 +19,7 @@ const Login = () => {
         try {
             const { data } = await axios.post(`${API_URL}/api/auth/login`, { email, password }, { withCredentials: true });
             login(data);
-            if (data.role === 'admin') {
+            if (data.role?.toLowerCase() === 'admin') {
                 navigate('/admin');
             } else {
                 navigate('/dashboard');
